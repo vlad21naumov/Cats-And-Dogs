@@ -12,7 +12,6 @@ torch = "^2.5.0"
 torchvision = "^0.20.1"
 pytorch-lightning = "^2.4.0"
 
-
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.1"
 
