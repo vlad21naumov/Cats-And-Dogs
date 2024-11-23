@@ -11,6 +11,8 @@ fire = "^0.7.0"
 torch = "^2.5.0"
 torchvision = "^0.20.1"
 pytorch-lightning = "^2.4.0"
+pandas="^2.0.0"
+requests="*"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.1"
