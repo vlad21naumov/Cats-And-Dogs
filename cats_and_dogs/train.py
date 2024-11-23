@@ -3,6 +3,8 @@ import os
 import pytorch_lightning as pl
 import torchvision
 import torchvision.transforms as transforms
+from torch.utils.data import DataLoader
+
 from constants import (
     BATCH_SIZE,
     DATA_PATH,
@@ -18,7 +20,6 @@ from constants import (
     SIZE_W,
 )
 from model import SimpleClassifier
-from torch.utils.data import DataLoader
 from trainer import ImageClassifier
 
 

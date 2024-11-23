@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "cats-and-dogs"
+name = "cats_and_dogs"
 version = "0.1.0"
 description = "MLOps example"
 authors = ["Vladislav Naumov <you@example.com>"]
@@ -14,6 +14,12 @@ pytorch-lightning = "^2.4.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.1"
+
+[tool.isort]
+src_paths = ["cats_and_dogs"]
+profile = "black"
+line_length = 90
+lines_after_imports = 2
 
 [build-system]
 requires = ["poetry-core"]
