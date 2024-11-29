@@ -1,5 +1,6 @@
 import os
 
+import fire
 import pytorch_lightning as pl
 import torchvision
 import torchvision.transforms as transforms
@@ -12,18 +13,16 @@ from constants import (
     IMAGE_STD,
     LR,
     MODELS_PATH,
-    N_CHANNELS,
     N_EPOCHS,
-    NUM_CLASSES,
     NUM_WORKERS,
     SIZE_H,
     SIZE_W,
 )
-from model import SimpleClassifier
+from model_selector import get_model
 from trainer import ImageClassifier
 
 
-def main():
+def main(model_label):
     transformer = transforms.Compose(
         [
             transforms.Resize((SIZE_H, SIZE_W)),
@@ -47,7 +46,7 @@ def main():
         val_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS
     )
 
-    model = SimpleClassifier(N_CHANNELS, SIZE_H, SIZE_W, NUM_CLASSES)
+    model = get_model(model_label)
     module = ImageClassifier(model, lr=LR)
 
     checkpoint_callback = pl.callbacks.ModelCheckpoint(
@@ -69,4 +68,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    fire.Fire(main)
