@@ -21,7 +21,7 @@ from model import SimpleClassifier
 from trainer import ImageClassifier
 
 
-def main(test_dir, checkpoint_name):
+def main(test_dir: str, checkpoint_name: str) -> None:
     transformer = transforms.Compose(
         [
             transforms.Resize((SIZE_H, SIZE_W)),

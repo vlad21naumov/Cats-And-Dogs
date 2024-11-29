@@ -22,7 +22,7 @@ from model_selector import get_model
 from trainer import ImageClassifier
 
 
-def main(model_label):
+def main(model_label: str) -> None:
     transformer = transforms.Compose(
         [
             transforms.Resize((SIZE_H, SIZE_W)),

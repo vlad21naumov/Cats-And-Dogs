@@ -6,6 +6,7 @@ from model import SimpleClassifier
 
 
 def get_model(label: str) -> torch.nn.Module:
+    """Select model to run experiments"""
     if label == "linear":
         return SimpleClassifier(N_CHANNELS, SIZE_H, SIZE_W, NUM_CLASSES)
     if label == "conv":

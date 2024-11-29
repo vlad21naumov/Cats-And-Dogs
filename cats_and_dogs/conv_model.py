@@ -4,7 +4,7 @@ import torch
 class ConvClassifier(torch.nn.Module):
     """Convolutional model for classification of images"""
 
-    def __init__(self, num_classes):
+    def __init__(self, num_classes: int):
         super().__init__()
         self.model = torch.nn.Sequential(
             torch.nn.Conv2d(3, 32, 3, stride=2, padding=1),
