@@ -3,9 +3,8 @@ import os
 import fire
 
 
-def download_and_extract(url, target_dir):
-    """
-    Downloads a ZIP file from a URL using wget, extracts it using unzip,
+def download_and_extract(url: str, target_dir: str) -> None:
+    """Downloads a ZIP file from a URL using wget, extracts it using unzip,
     and deletes the ZIP file after extraction.
     """
     os.makedirs(target_dir, exist_ok=True)

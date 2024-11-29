@@ -2,6 +2,8 @@ import torch
 
 
 class SimpleClassifier(torch.nn.Module):
+    """Linear model for classification of images"""
+
     def __init__(self, n_channels, size_h, size_w, num_classes):
         super().__init__()
         self.model = torch.nn.Sequential(

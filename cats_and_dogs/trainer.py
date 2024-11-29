@@ -3,6 +3,10 @@ import torch
 
 
 class ImageClassifier(pl.LightningModule):
+    """Module for training and evaluation models
+    for the classification task
+    """
+
     def __init__(self, model, lr):
         super().__init__()
         self.model = model
