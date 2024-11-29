@@ -27,6 +27,7 @@ class ImageClassifier(pl.LightningModule):
         data, logits = batch
         preds = self(data)
         loss = self.loss_fn(preds, logits)
+        # JUST COMMENT
         acc = (preds.argmax(dim=1) == logits).float().mean()
         self.log("val_loss", loss, prog_bar=True, on_epoch=True)
         self.log("val_acc", acc, prog_bar=True, on_epoch=True)
