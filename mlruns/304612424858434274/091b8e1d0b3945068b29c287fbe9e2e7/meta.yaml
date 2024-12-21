@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/304612424858434274/091b8e1d0b3945068b29c287fbe9e2e7/artifacts
+end_time: 1734706570502
+entry_point_name: ""
+experiment_id: "304612424858434274"
+lifecycle_stage: active
+run_id: 091b8e1d0b3945068b29c287fbe9e2e7
+run_name: linear-model-exp
+run_uuid: 091b8e1d0b3945068b29c287fbe9e2e7
+source_name: ""
+source_type: 4
+source_version: ""
+start_time: 1734706389542
+status: 3
+tags: []
+user_id: naumov-vladis

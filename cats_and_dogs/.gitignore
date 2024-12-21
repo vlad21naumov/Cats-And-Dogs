@@ -1,2 +1,4 @@
 __pycache__
 lightning_logs
+outputs
+wandb

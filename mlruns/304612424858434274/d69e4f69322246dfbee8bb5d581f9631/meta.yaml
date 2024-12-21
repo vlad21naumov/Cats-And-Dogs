@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/304612424858434274/d69e4f69322246dfbee8bb5d581f9631/artifacts
+deleted_time: 1734706392255
+end_time: null
+entry_point_name: ""
+experiment_id: "304612424858434274"
+lifecycle_stage: deleted
+run_id: d69e4f69322246dfbee8bb5d581f9631
+run_name: conv-model-exp
+run_uuid: d69e4f69322246dfbee8bb5d581f9631
+source_name: ""
+source_type: 4
+source_version: ""
+start_time: 1734706320631
+status: 1
+tags: []
+user_id: naumov-vladis
