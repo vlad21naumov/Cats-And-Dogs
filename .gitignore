@@ -1,6 +1,0 @@
-.DS_Store
-mlruns
-__pycache__/
-lightning_logs/
-outputs/
-wandb/
