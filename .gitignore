@@ -130,3 +130,6 @@ dmypy.json
 .pyre/
 
 data/*
+
+*.tar
+*.tar.gz
