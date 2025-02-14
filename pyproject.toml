@@ -1,9 +1,26 @@
 [project]
 name = "cats-and-dogs"
 version = "0.1.0"
-description = "Add your description here"
+description = "MLOps repo example for cats and dogs classification task"
+authors = [
+    {name = "naumov-vladis naumov.vo@phystech.edu"}
+]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "pytorch-lightning>=2.5.0.post0",
+    "somepytools @ git+https://github.com/v-goncharenko/somepytools.git",
+    "pytorch-lightning @ file:///Users/naumov-vladis/Desktop/courses/mlops_course/Cats-And-Dogs/pytorch_lightning-2.5.0.post0.tar.gz",
+    "pandas @ https://files.pythonhosted.org/packages/9c/d6/9f8431bacc2e19dca897724cd097b1bb224a6ad5433784a44b587c7c13af/pandas-2.2.3.tar.gz"
 ]
+packages = [
+    { include = "cats_and_dogs", from = "." }
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+fire = "^0.7.0"
+
