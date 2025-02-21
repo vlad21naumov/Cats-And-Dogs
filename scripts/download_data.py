@@ -22,6 +22,7 @@ def download_and_extract(url: str, target_dir: str) -> None:
     os.remove(zip_path)
     print(f"Deleted {zip_path}.")
 
+
 def check_dataset_size():
     os.system("ls -1 ../data/val/dog | wc -l")
 

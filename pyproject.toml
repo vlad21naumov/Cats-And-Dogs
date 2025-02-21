@@ -17,8 +17,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.group.dev.dependencies]
 fire = "^0.7.0"
+pre-commit = "^4.1.0"
 
 [tool.poetry.dependencies]
 somepytools = {git = "https://github.com/v-goncharenko/somepytools.git"}
-pytorch-lightning = {path = "pytorch_lightning-2.5.0.post0.tar.gz"}
 pandas = {url = "https://files.pythonhosted.org/packages/9c/d6/9f8431bacc2e19dca897724cd097b1bb224a6ad5433784a44b587c7c13af/pandas-2.2.3.tar.gz"}
+torch = "^2.6.0"
