@@ -4,7 +4,7 @@ import numpy as np
 import torch
 
 from cats_and_dogs.dataset import init_dataloader, init_dataset
-from cats_and_dogs.model import SimpleClassifier
+from cats_and_dogs.model import ConvClassifier, SimpleClassifier
 
 
 def train_model(model, train_loader, val_loader, loss_fn, opt, device, n_epochs: int):
@@ -78,7 +78,6 @@ def train_model(model, train_loader, val_loader, loss_fn, opt, device, n_epochs:
         f"../models/simple_model_{np.round(top_val_accuracy, 2)}.pt",
     )
     print(f"Best validation accuracy: {top_val_accuracy:.1f}")
-    print("Training is over...")
     return train_loss, val_loss, val_accuracy, best_model
 
 
@@ -86,6 +85,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model = SimpleClassifier()
+    model_2 = ConvClassifier()
     opt = torch.optim.Adam(model.parameters(), lr=1e-3)
     loss_fn = torch.nn.CrossEntropyLoss()
 
@@ -96,7 +96,7 @@ def main():
     val_loader = init_dataloader(val_dataset, 128)
 
     train_loss, val_loss, val_accuracy, best_model = train_model(
-        model, train_loader, val_loader, loss_fn, opt, device, 3
+        model_2, train_loader, val_loader, loss_fn, opt, device, 3
     )
 
 
