@@ -1,3 +1,0 @@
-train_data_path: ../data/train_11k
-val_data_path: ../data/val
-test_data_path: ../data/test_labeled

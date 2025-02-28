@@ -1,76 +1,102 @@
-import os
+import time
 
-# import fire
-import hydra
-import pytorch_lightning as pl
-import torchvision
-import torchvision.transforms as transforms
-from omegaconf import DictConfig
-from torch.utils.data import DataLoader
+import numpy as np
+import torch
 
-from logger_selector import get_logger
-from model_selector import get_model
-from trainer import ImageClassifier
+from cats_and_dogs.dataset import init_dataloader, init_dataset
+from cats_and_dogs.model import ConvClassifier, SimpleClassifier
 
 
-@hydra.main(version_base=None, config_path="../conf", config_name="config")
-def main(config: DictConfig):
-    transformer = transforms.Compose(
-        [
-            transforms.Resize(
-                (config["model"]["image_height"], config["model"]["image_width"])
-            ),
-            transforms.ToTensor(),
-            transforms.Normalize(
-                config["model"]["image_mean"], config["model"]["image_std"]
-            ),
-        ]
+def train_model(model, train_loader, val_loader, loss_fn, opt, device, n_epochs: int):
+    """Training the model
+
+    Args:
+        model: model to train
+        train_loader: dataloader for train data
+        val_loader (torch.nn.utils.Dataloader): dataloader for validation data
+        loss_fn: loss function to be used
+        opt: optimizer to be used
+        device: device used for training
+        n_epochs: number of epochs to train
+    """
+    train_loss = []
+    val_loss = []
+    val_accuracy = []
+    top_val_accuracy = -1
+    best_model = None
+    model = model.to(device)
+
+    print("Start training...")
+    for epoch in range(n_epochs):
+        ep_train_loss = []
+        ep_val_loss = []
+        ep_val_accuracy = []
+        start_time = time.time()
+
+        model.train(True)
+        for X_batch, y_batch in train_loader:
+            X_batch, y_batch = X_batch.to(device), y_batch.to(device)
+
+            opt.zero_grad()
+            predicts = model(X_batch)
+            loss = loss_fn(predicts, y_batch)
+
+            loss.backward()
+            opt.step()
+            ep_train_loss.append(loss.item())
+
+        model.train(False)
+        with torch.no_grad():
+            for X_batch, y_batch in val_loader:
+                X_batch, y_batch = X_batch.to(device), y_batch.to(device)
+
+                preds = model(X_batch)
+                validation_loss = loss_fn(preds, y_batch)
+
+                ep_val_loss.append(validation_loss.item())
+                preds_np = np.argmax(preds.detach().cpu().numpy(), 1).ravel()
+                gt = y_batch.detach().cpu().numpy().ravel()
+                hits = np.array(preds_np == gt)
+                ep_val_accuracy.append(hits.astype(np.float32).mean())
+
+        print(f"Epoch {epoch + 1} of {n_epochs} took {time.time() - start_time:.3f}s")
+
+        train_loss.append(np.mean(ep_train_loss))
+        val_loss.append(np.mean(ep_val_loss))
+        val_accuracy.append(np.mean(ep_val_accuracy))
+
+        print(f"\t  training loss: {train_loss[-1]:.6f}")
+        print(f"\tvalidation loss: {val_loss[-1]:.6f}")
+        print(f"\tvalidation accuracy: {100 * val_accuracy[-1]:.1f}")
+        if val_accuracy[-1] > top_val_accuracy:
+            best_model = model
+            top_val_accuracy = val_accuracy[-1]
+    print("Saving model...")
+    torch.save(
+        best_model.state_dict(),
+        f"../models/simple_model_{np.round(top_val_accuracy, 2)}.pt",
     )
+    print(f"Best validation accuracy: {100 * top_val_accuracy:.1f}")
+    return train_loss, val_loss, val_accuracy, best_model
 
-    train_dataset = torchvision.datasets.ImageFolder(
-        os.path.join(config["data_loading"]["train_data_path"]), transform=transformer
+
+def main():
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    model = SimpleClassifier()
+    model_2 = ConvClassifier()
+    opt = torch.optim.Adam(model.parameters(), lr=1e-3)
+    loss_fn = torch.nn.CrossEntropyLoss()
+
+    train_dataset = init_dataset("../data/train_11k")
+    train_loader = init_dataloader(train_dataset, 128)
+
+    val_dataset = init_dataset("../data/val")
+    val_loader = init_dataloader(val_dataset, 128)
+
+    train_loss, val_loss, val_accuracy, best_model = train_model(
+        model_2, train_loader, val_loader, loss_fn, opt, device, 3
     )
-
-    val_dataset = torchvision.datasets.ImageFolder(
-        os.path.join(config["data_loading"]["val_data_path"]), transform=transformer
-    )
-
-    train_loader = DataLoader(
-        train_dataset,
-        batch_size=config["training"]["batch_size"],
-        shuffle=True,
-        num_workers=config["training"]["num_workers"],
-    )
-    val_loader = DataLoader(
-        val_dataset,
-        batch_size=config["training"]["batch_size"],
-        shuffle=False,
-        num_workers=config["training"]["num_workers"],
-    )
-
-    model = get_model(config["model"])
-    module = ImageClassifier(model, lr=config["training"]["lr"])
-
-    checkpoint_callback = pl.callbacks.ModelCheckpoint(
-        monitor="val_loss",
-        dirpath=config["model"]["model_local_path"],
-        filename="model_{val_loss:.2f}",
-        save_top_k=1,
-        mode="min",
-    )
-
-    logger = get_logger(config["logging"])
-
-    trainer = pl.Trainer(
-        max_epochs=config["training"]["num_epochs"],
-        log_every_n_steps=1,  # to resolve warnings
-        accelerator="auto",
-        devices="auto",
-        logger=logger,
-        callbacks=[checkpoint_callback],
-    )
-
-    trainer.fit(module, train_loader, val_loader)
 
 
 if __name__ == "__main__":

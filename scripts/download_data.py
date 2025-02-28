@@ -23,5 +23,11 @@ def download_and_extract(url: str, target_dir: str) -> None:
     print(f"Deleted {zip_path}.")
 
 
+def check_dataset_size():
+    """Check size of each part of dataset (for your own choice)"""
+    print("Let's check num of files in dir:")
+    os.system("ls -1 ../data/train_11k/dog | wc -l")
+
+
 if __name__ == "__main__":
     fire.Fire(download_and_extract)

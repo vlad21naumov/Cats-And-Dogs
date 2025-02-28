@@ -1,13 +1,8 @@
-cats_and_dogs
-=============
+scripts
+=======
 
 .. toctree::
    :maxdepth: 4
 
-   constants
-   conv_model
-   model
-   model_selector
-   test
-   train
-   trainer
+   download_data
+   cats_and_dogs
