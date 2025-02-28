@@ -71,26 +71,6 @@ def train_model(model, train_loader, val_loader, loss_fn, opt, device, n_epochs:
         if val_accuracy[-1] > top_val_accuracy:
             best_model = model
             top_val_accuracy = val_accuracy[-1]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     print("Saving model...")
     torch.save(
         best_model.state_dict(),
