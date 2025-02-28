@@ -77,7 +77,7 @@ def train_model(model, train_loader, val_loader, loss_fn, opt, device, n_epochs:
         best_model.state_dict(),
         f"../models/simple_model_{np.round(top_val_accuracy, 2)}.pt",
     )
-    print(f"Final validation loss: {val_loss[-1]:.1f}")
+    print(f"Best validation accuracy: {top_val_accuracy:.1f}")
     print("Training is over...")
     return train_loss, val_loss, val_accuracy, best_model
 
