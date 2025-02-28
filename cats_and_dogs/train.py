@@ -72,7 +72,7 @@ def train_model(model, train_loader, val_loader, loss_fn, opt, device, n_epochs:
             best_model = model
             top_val_accuracy = val_accuracy[-1]
 
-    print("Training is over... Saving model...")
+    print("Training is over... Saving model...!")
     torch.save(
         best_model.state_dict(),
         f"../models/simple_model_{np.round(top_val_accuracy, 2)}.pt",
