@@ -21,6 +21,8 @@ pre-commit = "^4.1.0"
 ipykernel = "^6.29.5"
 jupyterlab = "^4.3.5"
 notebook = "^7.3.2"
+wandb = "^0.19.8"
+rich = "^13.9.4"
 
 [tool.poetry.dependencies]
 somepytools = {git = "https://github.com/v-goncharenko/somepytools.git"}

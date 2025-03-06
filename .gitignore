@@ -130,6 +130,9 @@ dmypy.json
 .pyre/
 
 data/*
+checkpoints/
+lightning_logs/
+wandb/
 
 *.tar
 *.tar.gz

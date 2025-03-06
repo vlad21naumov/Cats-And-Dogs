@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 
-from cats_and_dogs.dataset import init_dataloader, init_dataset
+from cats_and_dogs.data import init_dataloader, init_dataset
 from cats_and_dogs.model import SimpleClassifier
 
 
