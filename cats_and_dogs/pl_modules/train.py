@@ -9,6 +9,7 @@ from data import MyDataModule
 
 def main():
     pl.seed_everything(42)
+    # if you want to use matmul precision:
     # torch.set_float32_matmul_precision("medium")
     dm = MyDataModule(
         train_path="../../data/train_11k",
@@ -68,7 +69,7 @@ def main():
         callbacks=callbacks,
     )
 
-    # Batch size tuner
+    # Batch size tuner:
     # tuner = pl.tuner.Tuner(trainer)
     # tuner.scale_batch_size(model, datamodule=dm, mode="power")
 
