@@ -1,10 +1,10 @@
 import os
 
 import pytorch_lightning as pl
-from classifiers import ConvClassifier
-from model import ImageClassifier
 
-from data import MyDataModule
+from cats_and_dogs.pl_modules.classifiers import ConvClassifier
+from cats_and_dogs.pl_modules.data import MyDataModule
+from cats_and_dogs.pl_modules.model import ImageClassifier
 
 
 def main():
@@ -22,16 +22,16 @@ def main():
 
     loggers = [
         # pl.loggers.CSVLogger("./logs/my-csv-logs", name=cfg.artifacts.experiment_name),
-        pl.loggers.MLFlowLogger(
-            experiment_name="cats-and-dogs",
-            run_name="conv-classifier",
-            save_dir=".",
-            tracking_uri="http://127.0.0.1:8080",
-        ),
+        # pl.loggers.MLFlowLogger(
+        #     experiment_name="cats-and-dogs",
+        #     run_name="conv-classifier",
+        #     save_dir=".",
+        #     tracking_uri="http://127.0.0.1:8080",
+        # ),
         # pl.loggers.TensorBoardLogger(
         #     "./.logs/my-tb-logs", name=cfg.artifacts.experiment_name
         # ),
-        # pl.loggers.WandbLogger(project="mlops-logging-demo", name="conv-classifier"),
+        pl.loggers.WandbLogger(project="mlops-logging-demo", name="conv-classifier"),
     ]
 
     callbacks = [
