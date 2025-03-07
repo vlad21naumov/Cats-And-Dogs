@@ -2,13 +2,13 @@ from typing import Any, Optional
 
 import pytorch_lightning as pl
 import torch
+import torchvision
 from torchvision import transforms
-from torchvision.datasets import ImageFolder
 
 
 class MyDataset(torch.utils.data.Dataset):
     def __init__(self, path: str, transform: Any = None):
-        self.dataset = ImageFolder(path, transform=transform)
+        self.dataset = torchvision.datasets.ImageFolder(path, transform=transform)
 
     def __len__(self):
         return len(self.dataset)
@@ -62,7 +62,7 @@ class MyDataModule(pl.LightningDataModule):
         self.test_path = test_path
         self.batch_size = batch_size
         self.num_workers = num_workers
-        self.transform = transforms.Compose(
+        self.transform = torchvision.transforms.Compose(
             [
                 transforms.Resize((96, 96)),
                 transforms.ToTensor(),

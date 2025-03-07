@@ -2,8 +2,8 @@ from typing import Any
 
 import pytorch_lightning as pl
 import torch
-import torchvision
-import wandb
+
+# import wandb
 
 
 class ImageClassifier(pl.LightningModule):
@@ -17,6 +17,10 @@ class ImageClassifier(pl.LightningModule):
         self.model = model
         self.lr = lr
         self.loss_fn = torch.nn.CrossEntropyLoss()
+
+        # Backbone + layers example
+        # self.backbone = AutoModel.from_pretrained(...)
+        # self.lin_layer = torch.nn.Linear(encoder_dim, output_dim)
 
     def forward(self, x):
         return self.model(x)
@@ -154,13 +158,13 @@ class ImageClassifier(pl.LightningModule):
         data, logits = batch
         preds = self(data)
 
-        sample_imgs = data[:6]
-        grid = torchvision.utils.make_grid(sample_imgs)
+        # For nice image visualization with wandb! :)
+        # sample_imgs = data[:6]
+        # grid = torchvision.utils.make_grid(sample_imgs)
 
-        # Log images using wandb.Image
-        self.logger.experiment.log(
-            {"example_images": [wandb.Image(grid, caption="Example Images")]}
-        )
+        # self.logger.experiment.log(
+        #     {"example_images": [wandb.Image(grid, caption="Example Images")]}
+        # )
 
         loss = self.loss_fn(preds, logits)
         acc = (preds.argmax(dim=1) == logits).float().mean()

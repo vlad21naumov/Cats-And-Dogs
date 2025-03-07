@@ -18,7 +18,7 @@ def main():
         batch_size=32,
         num_workers=6,
     )
-    model = ImageClassifier(ConvClassifier(num_classes=2), 1e-3)
+    model = ImageClassifier(ConvClassifier(num_classes=2), lr=1e-3)
 
     loggers = [
         # pl.loggers.CSVLogger("./logs/my-csv-logs", name=cfg.artifacts.experiment_name),
@@ -54,10 +54,10 @@ def main():
     trainer = pl.Trainer(
         accelerator="cpu",
         # devices=0,
-        # strategy="deepspeed_stage_2"
+        # strategy="deepspeed_stage_2",
         precision=32,
         max_epochs=10,
-        # max_steps - alternative
+        # max_steps=... - alternative to max_epochs
         accumulate_grad_batches=1,
         val_check_interval=1.0,
         overfit_batches=0,

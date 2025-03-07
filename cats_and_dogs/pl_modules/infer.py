@@ -15,9 +15,9 @@ def main():
     )
 
     model = ImageClassifier.load_from_checkpoint(
-        "../../checkpoints/conv-classifier/epoch=09-val_loss=0.4654.ckpt"
+        "../../checkpoints/conv-classifier/epoch=03-val_loss=0.5245.ckpt"
     )
-    trainer = pl.Trainer(accelerator="cpu", devices=None)
+    trainer = pl.Trainer(accelerator="cpu", devices="auto")
 
     accs = trainer.predict(model, datamodule=dm)
     print(f"Test accuracy: {np.mean(accs):.2f}")
