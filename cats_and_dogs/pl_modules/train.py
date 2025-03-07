@@ -51,6 +51,7 @@ def main():
     trainer = pl.Trainer(
         accelerator="cpu",
         # devices=0,
+        # strategy="deepspeed_stage_2"
         precision=32,
         max_epochs=10,
         # max_steps - alternative
