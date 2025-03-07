@@ -14,21 +14,24 @@ def main():
     dm = MyDataModule(
         train_path="../../data/train_11k",
         val_path="../../data/train_11k",
+        test_path="../../data/test_labeled",
         batch_size=32,
         num_workers=6,
     )
     model = ImageClassifier(ConvClassifier(num_classes=2), 1e-3)
 
     loggers = [
-        # pl.loggers.CSVLogger("./.logs/my-csv-logs", name=cfg.artifacts.experiment_name),
-        # pl.loggers.MLFlowLogger(
-        #     experiment_name=cfg.artifacts.experiment_name,
-        #     tracking_uri="file:./.logs/my-mlflow-logs",
-        # ),
+        # pl.loggers.CSVLogger("./logs/my-csv-logs", name=cfg.artifacts.experiment_name),
+        pl.loggers.MLFlowLogger(
+            experiment_name="cats-and-dogs",
+            run_name="conv-classifier",
+            save_dir=".",
+            tracking_uri="http://127.0.0.1:8080",
+        ),
         # pl.loggers.TensorBoardLogger(
         #     "./.logs/my-tb-logs", name=cfg.artifacts.experiment_name
         # ),
-        pl.loggers.WandbLogger(project="mlops-logging-demo", name="conv-classifier"),
+        # pl.loggers.WandbLogger(project="mlops-logging-demo", name="conv-classifier"),
     ]
 
     callbacks = [

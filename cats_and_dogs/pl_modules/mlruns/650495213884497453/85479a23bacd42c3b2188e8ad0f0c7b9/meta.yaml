@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/650495213884497453/85479a23bacd42c3b2188e8ad0f0c7b9/artifacts
+end_time: 1741357687035
+entry_point_name: ""
+experiment_id: "650495213884497453"
+lifecycle_stage: active
+run_id: 85479a23bacd42c3b2188e8ad0f0c7b9
+run_name: conv-classifier
+run_uuid: 85479a23bacd42c3b2188e8ad0f0c7b9
+source_name: ""
+source_type: 4
+source_version: ""
+start_time: 1741357446719
+status: 4
+tags: []
+user_id: naumov-vladis

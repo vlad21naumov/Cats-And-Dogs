@@ -23,6 +23,7 @@ jupyterlab = "^4.3.5"
 notebook = "^7.3.2"
 wandb = "^0.19.8"
 rich = "^13.9.4"
+mlflow = "^2.20.3"
 
 [tool.poetry.dependencies]
 somepytools = {git = "https://github.com/v-goncharenko/somepytools.git"}

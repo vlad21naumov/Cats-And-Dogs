@@ -133,6 +133,7 @@ data/*
 checkpoints/
 lightning_logs/
 wandb/
+mlruns/
 
 *.tar
 *.tar.gz
